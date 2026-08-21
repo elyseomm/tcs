@@ -103,7 +103,7 @@ docker compose up --build
 
 Serviços:
 
-- API: `http://localhost:63720` / `http://localhost:8080`
+- API: `http://localhost:8080`
 - MySQL: `localhost:3306`
 
 A API aguarda o health check do MySQL antes de iniciar e executa as migrations automaticamente.
