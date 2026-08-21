@@ -7,7 +7,7 @@ public sealed class LoggingBehavior<TRequest,TResponse>(ILogger<LoggingBehavior<
 {
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken ct) 
     { 
-        var sw=Stopwatch.StartNew(); 
+        var sw = Stopwatch.StartNew(); 
         try { 
             var response = await next(ct); 
             logger.LogInformation("{Request} completed in {Elapsed}ms. Response: {@Response}", 

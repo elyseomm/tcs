@@ -25,12 +25,12 @@ public sealed class CreateOrderValidator:AbstractValidator<CreateOrderCommand>
         }
     }
 }
-public sealed class CreateOrderHandler(IOrderRepository repository):IRequestHandler<CreateOrderCommand,OrderDto>
+public sealed class CreateOrderHandler(IOrderRepository repository):IRequestHandler<CreateOrderCommand, OrderDto>
 {
     public async Task<OrderDto> Handle(CreateOrderCommand request,CancellationToken ct)
     {
-        var order = new Order(request.CustomerId,request.Items.Select(x=>(x.ProductName,x.Quantity,x.UnitPrice)));
-        await repository.AddAsync(order,ct);
+        var order = new Order(request.CustomerId,request.Items.Select(x => (x.ProductName, x.Quantity, x.UnitPrice)));
+        await repository.AddAsync(order, ct);
         await repository.SaveChangesAsync(ct);
         return Mapper.ToDto(order);
     }
@@ -42,6 +42,6 @@ internal static class Mapper {
         x.Status,
         x.CreatedAt,
         x.TotalAmount,
-        x.Items.Select(i=>new OrderItemDto(i.Id,i.ProductName,i.Quantity,i.UnitPrice)).ToList()
+        [.. x.Items.Select(i => new OrderItemDto(i.Id, i.ProductName, i.Quantity, i.UnitPrice))]
     ); 
 }
