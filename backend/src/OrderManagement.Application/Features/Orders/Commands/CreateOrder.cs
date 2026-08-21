@@ -1,5 +1,9 @@
-using FluentValidation; using MediatR; 
-using OrderManagement.Application.Abstractions; using OrderManagement.Application.Models; using OrderManagement.Domain.Entities;
+using FluentValidation;
+using MediatR; 
+using OrderManagement.Application.Abstractions;
+using OrderManagement.Application.Models;
+using OrderManagement.Domain.Entities;
+
 namespace OrderManagement.Application.Features.Orders.Commands;
 public sealed record CreateOrderCommand(Guid CustomerId, IReadOnlyCollection<CreateOrderItem> Items):IRequest<OrderDto>;
 public sealed record CreateOrderItem(string ProductName,int Quantity,decimal UnitPrice);

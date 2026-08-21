@@ -1,4 +1,6 @@
-using FluentValidation; using MediatR;
+using FluentValidation;
+using MediatR;
+
 namespace OrderManagement.Application.Behaviors;
 public sealed class ValidationBehavior<TRequest,TResponse>(IEnumerable<IValidator<TRequest>> validators) : IPipelineBehavior<TRequest,TResponse> where TRequest : notnull
 {
