@@ -18,7 +18,7 @@ public sealed class GetOrdersHandler(IOrderRepository repository): IRequestHandl
 { 
     public async Task<PagedResult<OrderDto>> Handle(GetOrdersQuery request,CancellationToken ct)
     {
-        var r = await repository.GetPagedAsync(request.Page, request.PageSize, ct);
-        return new(r.Items.Select(Mapper.ToDto).ToList(), request.Page, request.PageSize, r.TotalCount);
+        var (Items, TotalCount) = await repository.GetPagedAsync(request.Page, request.PageSize, ct);
+        return new([.. Items.Select(Mapper.ToDto)], request.Page, request.PageSize, TotalCount);
     }
 }

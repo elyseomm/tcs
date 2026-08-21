@@ -15,7 +15,7 @@ public sealed class CreateOrderValidator:AbstractValidator<CreateOrderCommand>
         RuleFor(x=>x.Items).NotEmpty();
         RuleForEach(x=>x.Items).SetValidator(new ItemValidator());
     }
-    private sealed class ItemValidator:AbstractValidator<CreateOrderItem>
+    private sealed class ItemValidator: AbstractValidator<CreateOrderItem>
     {
         public ItemValidator()
         {
@@ -25,9 +25,9 @@ public sealed class CreateOrderValidator:AbstractValidator<CreateOrderCommand>
         }
     }
 }
-public sealed class CreateOrderHandler(IOrderRepository repository):IRequestHandler<CreateOrderCommand, OrderDto>
+public sealed class CreateOrderHandler(IOrderRepository repository): IRequestHandler<CreateOrderCommand, OrderDto>
 {
-    public async Task<OrderDto> Handle(CreateOrderCommand request,CancellationToken ct)
+    public async Task<OrderDto> Handle(CreateOrderCommand request, CancellationToken ct)
     {
         var order = new Order(request.CustomerId,request.Items.Select(x => (x.ProductName, x.Quantity, x.UnitPrice)));
         await repository.AddAsync(order, ct);

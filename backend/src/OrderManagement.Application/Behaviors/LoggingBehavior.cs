@@ -9,8 +9,8 @@ public sealed class LoggingBehavior<TRequest,TResponse>(ILogger<LoggingBehavior<
     { 
         var sw = Stopwatch.StartNew(); 
         try { 
-            var response = await next(ct); 
-            logger.LogInformation("{Request} completed in {Elapsed}ms. Response: {@Response}", 
+            var response = await next(ct);
+            logger.LogInformation("{Request} completed in {Elapsed}ms. Response: {@Response}",
                 typeof(TRequest).Name, sw.ElapsedMilliseconds, response); 
             return response;
         } 

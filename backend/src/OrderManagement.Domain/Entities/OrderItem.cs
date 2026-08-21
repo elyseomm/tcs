@@ -13,9 +13,9 @@ public sealed class OrderItem
     private OrderItem() { }
     public OrderItem(Guid orderId, string productName, int quantity, decimal unitPrice)
     {
-        if (string.IsNullOrWhiteSpace(productName)) throw new DomainException("ProductName is required.");
-        if (quantity <= 0) throw new DomainException("Quantity must be greater than zero.");
-        if (unitPrice <= 0) throw new DomainException("UnitPrice must be greater than zero.");
+        if (string.IsNullOrWhiteSpace(productName)) throw new DomainException("Nome do Produto é requerido.");
+        if (quantity <= 0) throw new DomainException("Quantidade precisa ser maior que zero.");
+        if (unitPrice <= 0) throw new DomainException("UnitPrice precisa ser maior que zero.");
         OrderId = orderId; ProductName = productName.Trim(); Quantity = quantity; UnitPrice = unitPrice;
     }
     public decimal Total => Quantity * UnitPrice;

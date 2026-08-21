@@ -18,11 +18,11 @@ public sealed class Order
     {
         CustomerId = customerId;
         foreach (var item in items) _items.Add(new OrderItem(Id, item.ProductName, item.Quantity, item.UnitPrice));
-        if (_items.Count == 0) throw new DomainException("An order must contain at least one item.");
+        if (_items.Count == 0) throw new DomainException("Uma ordem deve possuir ao menos um(1) item.");
     }
     public void Cancel()
     {
-        if (Status != OrderStatus.Pending) throw new DomainException("Only pending orders can be cancelled.");
+        if (Status != OrderStatus.Pending) throw new DomainException("Apenas ordens pendentes podem ser canceladas.");
         Status = OrderStatus.Cancelled;
     }
 }
