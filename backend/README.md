@@ -77,11 +77,6 @@ Pré-requisitos:
 
 - .NET SDK 10
 - MySQL 8.4+ local ou Docker
-  
-```bash
-
-dotnet tool install --global dotnet-ef
-```
 
 ```bash
 
@@ -103,7 +98,7 @@ docker compose up --build
 
 Serviços:
 
-- API: `http://localhost:63720` / `http://localhost:8080`
+- API: `http://localhost:8080`
 - MySQL: `localhost:3306`
 
 A API aguarda o health check do MySQL antes de iniciar e executa as migrations automaticamente.
@@ -152,19 +147,29 @@ dotnet test
 
 ## Migration Inicial
 
+Um Migration será executado automaticamente toda vez que executar a aplicação "OrderManagement.Api" no terminal via comando: 
+
+```bash
+dotnet run --project src/OrderManagement.Api
+```
+
+Se deseja rodar manualmente para verificar a execução/criação dos artefatos ...
+Precisa instalar anteriormente o dotnet-ef:
+
+```bash
+dotnet tool install --global dotnet-ef
+```
+
 No terminal navege até a pasta "..\src\OrderManagement.Infrastructure\";
 Certifique-se que o arquivo "20260820002545_InitialCreate.cs" existe na pasta Migrations do projeto OrderManagement.Infrastructure;
 Caso não exista, execute o comando:
 
 ```bash
  dotnet ef migrations add InitialCreate
-```, um arquivo com nome no formato "YYYYMMDDHHMISS_InitialCreate.cs" deverá ser criado;
+```
 
-# Em seguida execute o comando: 
-
-# ```bash
-#  dotnet ef database update
-#  ```, as tabelas "orders e orderitems" deverão ser criadas;
+um arquivo com nome no formato "YYYYMMDDHHMISS_InitialCreate.cs" deverá ser criado;
+E então execute a aplicação OrderManagement.Api.
 
 ## Criar novas migrations
 
