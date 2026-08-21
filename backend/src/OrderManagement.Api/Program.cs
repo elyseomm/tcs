@@ -28,7 +28,7 @@ builder.Services.AddTransient(typeof(IPipelineBehavior<,>),typeof(LoggingBehavio
 var jwt = builder.Configuration.GetSection("Jwt");
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o => o.TokenValidationParameters = new()
 {
-    ValidateIssuer = true,ValidIssuer=jwt["Issuer"],ValidateAudience=true,ValidAudience=jwt["Audience"],
+    ValidateIssuer = true, ValidIssuer=jwt["Issuer"], ValidateAudience=true, ValidAudience=jwt["Audience"],
     ValidateIssuerSigningKey=true, IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt["Key"]!)), 
     ValidateLifetime=true
 });
@@ -55,16 +55,16 @@ app.MapPost("/auth/login",(LoginRequest r, IJwtTokenService jwt) =>
 
 var orders = app.MapGroup("/api/orders").RequireAuthorization();
 
-orders.MapPost("/",async(CreateOrderCommand c,ISender s,CancellationToken ct) =>
+orders.MapPost("/",async(CreateOrderCommand c, ISender s, CancellationToken ct) =>
 { 
-    var order = await s.Send(c,ct); 
+    var order = await s.Send(c, ct); 
     return Results.Created($"/api/orders/{order.Id}",order);
 });
     
 orders.MapGet("/",async(int page,int pageSize,ISender s,CancellationToken ct) => 
-    Results.Ok(await s.Send(new GetOrdersQuery(page,pageSize),ct)));
+    Results.Ok(await s.Send(new GetOrdersQuery(page,pageSize), ct)));
 
-orders.MapGet("/{id:guid}",async(Guid id,ISender s,CancellationToken ct) =>
+orders.MapGet("/{id:guid}",async(Guid id, ISender s, CancellationToken ct) =>
 {
     try
     {
@@ -76,11 +76,11 @@ orders.MapGet("/{id:guid}",async(Guid id,ISender s,CancellationToken ct) =>
     }
 });
 
-orders.MapPatch("/{id:guid}/cancel",async(Guid id,ISender s,CancellationToken ct) =>
+orders.MapPatch("/{id:guid}/cancel",async(Guid id, ISender s, CancellationToken ct) =>
 {  
     try
     {
-        await s.Send(new CancelOrderCommand(id),ct);
+        await s.Send(new CancelOrderCommand(id), ct);
         return Results.NoContent();
     }
     catch(KeyNotFoundException)
