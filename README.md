@@ -1,2 +1,0 @@
-# tcs
-tsc ecommerce 
